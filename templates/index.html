@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./static/styles.css">
+    <title>Document</title>
+</head>
+<body>
+        <div class="container">
+            <h1>Recipe Finder</h1>
+            <form method="POST" action="/">
+                <label for="ingredients" class="lebel-ing">Enter Ingredients:</label><br>
+                <input type="text" name="ingredients" id="ingredients" placeholder="Enter Ingredients"><br><br>
+                <button type="submit" id="submit" class="btn" >Search</button>
+            </form>
+            <h1>Recipe Results</h1>
+            <div class="recipe-grid">
+                {% for recipe in recipes %}
+                <div class="recipe-card">
+                    <img src="{{ recipe['recipe']['image'] }}" alt="Recipe Image">
+                    <h3>{{ recipe['recipe']['label'] }}</h3>
+                    <p>Servings: {{ recipe['recipe']['yield'] }}</p>
+                    <p>Ready in: {{ recipe['recipe']['totalTime'] }}</p>
+                    <p>Ingredients:</p>
+                    <ul>
+                        {% for ingredient in recipe['recipe']['ingredients'] %}
+                            <li>{{ ingredient['text'] }}</li>
+                        {% endfor %}
+                    </ul>
+                    <button class="view-recipe-btn" onclick="window.open('{{ recipe['recipe']['url'] }}', '_blank')">View Recipe</button>
+                </div>
+                {% endfor %}
+            </div>
+        
+
+</body>
+</html>
